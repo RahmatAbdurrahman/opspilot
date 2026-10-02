@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --radius: 0.5rem;
+
+  /* OpsPilot dark navy theme */
+  --background:       220 30% 6%;
+  --foreground:       210 40% 95%;
+
+  --card:             220 25% 9%;
+  --card-foreground:  210 40% 95%;
+
+  --popover:          220 25% 9%;
+  --popover-foreground: 210 40% 95%;
+
+  --primary:          189 94% 43%;
+  --primary-foreground: 220 30% 6%;
+
+  --secondary:        220 20% 14%;
+  --secondary-foreground: 210 30% 80%;
+
+  --muted:            220 20% 14%;
+  --muted-foreground: 215 20% 55%;
+
+  --accent:           220 20% 16%;
+  --accent-foreground: 210 40% 95%;
+
+  --destructive:      0 62% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border:           220 20% 14%;
+  --input:            220 20% 14%;
+  --ring:             189 94% 43%;
+
+  /* Status colors */
+  --color-success:   142 71% 45%;
+  --color-warning:   38  92% 50%;
+  --color-danger:    0   72% 51%;
+  --color-info:      189 94% 43%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+/*
+ * The dashboard shell owns scrolling: <main> is the only vertical scroll
+ * container. Locking the document and disabling overscroll chaining stops
+ * elastic/rubber-band overscroll (macOS trackpads, mobile) from dragging the
+ * whole shell — sidebar and topbar included — when <main> reaches its end.
+ */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(220 25% 9%);
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(220 20% 20%);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(220 20% 28%);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Mobile navigation drawer animations (Radix keeps the node mounted until they finish) */
+@keyframes mobile-nav-in       { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes mobile-nav-out      { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes mobile-nav-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mobile-nav-fade-out { from { opacity: 1; } to { opacity: 0; } }
+.mobile-nav-panel[data-state="open"]     { animation: mobile-nav-in 0.2s ease-out; }
+.mobile-nav-panel[data-state="closed"]   { animation: mobile-nav-out 0.15s ease-in; }
+.mobile-nav-overlay[data-state="open"]   { animation: mobile-nav-fade-in 0.15s ease-out; }
+.mobile-nav-overlay[data-state="closed"] { animation: mobile-nav-fade-out 0.15s ease-in; }
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav-panel, .mobile-nav-overlay { animation: none !important; }
 }
