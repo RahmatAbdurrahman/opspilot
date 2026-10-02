@@ -1,0 +1,13 @@
+{
+  "name": "OpsPilot",
+  "short_name": "OpsPilot",
+  "description": "AI Revenue Operations Agent for small B2B businesses. Know what needs attention and act on it faster.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
